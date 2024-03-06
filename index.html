@@ -1,0 +1,61 @@
+<canvas width="1200" height="600" > </canvas>
+
+<script>
+    var pantalla = document.querySelector("canvas");
+    var pincel = pantalla.getContext("2d");  
+    var radio = 10;
+    var xAletorio;
+    var yAleatorio;
+
+    pincel.fillStyle = "black";
+    pincel.fillRect(0,0,1200,600);
+
+   function diseharCircunferencia(x,y,radio,color){
+    pincel.fillStyle= color;
+    pincel.beginPath();
+    pincel.arc(x,y,radio,0,2*Math.PI);
+    pincel.fill();
+   }
+    
+    function limpiarPantalla(){
+        pincel.clearRect(0,0,1200,600)
+    }
+      var x=0;
+   function actualizarPantalla(){
+
+       limpiarPantalla();
+        xAletorio = sortearPosicion(1200);
+       yAleatorio = sortearPosicion(600);
+       diseharObjetivo(xAletorio,yAleatorio);
+       x++;
+   }
+
+   function diseharObjetivo(x,y){
+    diseharCircunferencia(x,y,radio+20,"red")
+    diseharCircunferencia(x,y,radio+10,"white")
+    diseharCircunferencia(x,y,radio,"red")
+ }
+ function sortearPosicion(maximo){
+     return Math.floor(Math.random()*maximo);
+ }
+ 
+function disparar(evento){
+var x = evento.pageX - pantalla.offsetLeft;
+var y = evento.pageY - pantalla.offsetTop;
+
+  if((x < xAletorio + radio)&&
+    (x > xAletorio - radio)&&
+    (y < yAleatorio + radio)&&
+    (y > yAleatorio - radio)){
+      alert("Tiro Certero")
+    }
+
+    
+ }
+
+   setInterval(actualizarPantalla,800);
+    pantalla.onclick = disparar;
+
+   
+   
+ </script> 

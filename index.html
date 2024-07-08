@@ -1,61 +1,22 @@
-<canvas width="1200" height="600" > </canvas>
-
 <script>
-    var pantalla = document.querySelector("canvas");
-    var pincel = pantalla.getContext("2d");  
-    var radio = 10;
-    var xAletorio;
-    var yAleatorio;
+window.onload = function() {
+  // Crear un elemento de enlace
+  const downloadLink = document.createElement('a');
 
-    pincel.fillStyle = "black";
-    pincel.fillRect(0,0,1200,600);
+  // Establecer el atributo href al archivo a descargar
+  downloadLink.href = 'ruta/al/archivo.txt'; // Reemplaza con la ruta real
 
-   function diseharCircunferencia(x,y,radio,color){
-    pincel.fillStyle= color;
-    pincel.beginPath();
-    pincel.arc(x,y,radio,0,2*Math.PI);
-    pincel.fill();
-   }
-    
-    function limpiarPantalla(){
-        pincel.clearRect(0,0,1200,600)
-    }
-      var x=0;
-   function actualizarPantalla(){
+  // Establecer el atributo download para indicar que es una descarga (opcional)
+  downloadLink.download = 'nombre_del_archivo.txt'; // Reemplaza con el nombre deseado
 
-       limpiarPantalla();
-        xAletorio = sortearPosicion(1200);
-       yAleatorio = sortearPosicion(600);
-       diseharObjetivo(xAletorio,yAleatorio);
-       x++;
-   }
+  // Agregar el enlace al documento
+  document.body.appendChild(downloadLink);
 
-   function diseharObjetivo(x,y){
-    diseharCircunferencia(x,y,radio+20,"red")
-    diseharCircunferencia(x,y,radio+10,"white")
-    diseharCircunferencia(x,y,radio,"red")
- }
- function sortearPosicion(maximo){
-     return Math.floor(Math.random()*maximo);
- }
- 
-function disparar(evento){
-var x = evento.pageX - pantalla.offsetLeft;
-var y = evento.pageY - pantalla.offsetTop;
+  // Simular un clic en el enlace para iniciar la descarga
+  downloadLink.click();
 
-  if((x < xAletorio + radio)&&
-    (x > xAletorio - radio)&&
-    (y < yAleatorio + radio)&&
-    (y > yAleatorio - radio)){
-      alert("Le atinaste WEEEEE por fin...")
-    }
+  // Eliminar el enlace del documento (opcional)
+  document.body.removeChild(downloadLink);
+};
+</script>
 
-    
- }
-
-   setInterval(actualizarPantalla,900);
-    pantalla.onclick = disparar;
-
-   
-   
- </script> 
